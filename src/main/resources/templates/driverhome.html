@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Home</title>
+    <style>
+        body {
+            width: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-top: 30px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: calc(50% - 10px);
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            /* Adjust styles for smaller screens */
+            .card {
+                padding: 20px;
+            }
+
+            input[type="text"] {
+                width: 100%;
+            }
+
+            input[type="submit"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>Booking Details</h1>
+    <!-- Display the car information, driver information, username, from, and to -->
+    <div th:if="${driverHome != null}">
+        <h2>Car Information</h2>
+        <p>Make and Model: <span th:text="${driverHome.carMake + ' ' + driverHome.carModel}"></span></p>
+        <p>Year: <span th:text="${driverHome.carYear}"></span></p>
+        <img th:src="${driverHome.carImageLink}" alt="Car Image">
+    </div>
+
+    <div th:if="${driverHome!=null}">
+        <h2>Location Details</h2>
+        <p>User Name: <span th:text="${driverHome.username}"></span></p>
+        <p>Pickup: <span th:text="${driverHome.from}"></span></p>
+        <p>Drop: <span th:text="${driverHome.to}"></span></p>
+        <p>Price: <span th:text="${driverHome.price}"></span></p>
+    </div>
+
+
+
+    <!-- Add form elements if needed -->
+    <form action="/driverhome1" method="post">
+        <input type="hidden" name="username" th:value="${driverHome!=null ? driverHome.username: ''}"/>
+        <label for="final-price">Ride Fare:</label>
+        <input type="text" id="final-price" name="final-price" style="width: 80px"><br><br>
+        <button type="submit">End Ride</button>
+    </form>
+</div>
+</body>
+</html>

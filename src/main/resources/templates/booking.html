@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking</title>
+    <style>
+        body {
+            width: 700px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 50px;
+        }
+
+        .container {
+            max-width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: calc(50% - 20px);
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        img{
+            width: 200px;
+            height: 100px;
+        }
+        input[type="submit"] {
+            width: calc(50% - 20px);
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Booking Details</h1>
+<form action="/saveBooking" method="post">
+    <!-- Hidden input fields to hold car and driver information -->
+    <input type="hidden" name="carMake" th:value="${car != null ? car.make : ''}" />
+    <input type="hidden" name="carModel" th:value="${car != null ? car.model : ''}" />
+    <input type="hidden" name="carYear" th:value="${car != null ? car.year : ''}" />
+    <input type="hidden" name="carImageLink" th:value="${car != null ? car.imageLink : ''}" />
+    <input type="hidden" name="driverName" th:value="${driver != null ? driver.name : ''}" />
+    <input type="hidden" name="driverLicenseNumber" th:value="${driver != null ? driver.licenseNumber : ''}" />
+
+    <div th:if="${car != null}">
+        <h2>Car Information</h2>
+        <p>Make and Model: <span th:text="${car.make + ' ' + car.model}"></span></p>
+        <p>Year: <span th:text="${car.year}"></span></p>
+        <p>Image: <img th:src="${car.imageLink}" alt="Car Image"></p>
+    </div>
+
+    <div th:if="${driver != null}">
+        <h2>Driver Information</h2>
+        <p>Name: <span th:text="${driver.name}"></span></p>
+        <p>License Number: <span th:text="${driver.licenseNumber}"></span></p>
+    </div>
+
+    <label for="username">UserName:</label>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="from">From:</label>
+    <input type="text" id="from" name="from"><br><br>
+    <label for="to">To:</label>
+    <input type="text" id="to" name="to"><br><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

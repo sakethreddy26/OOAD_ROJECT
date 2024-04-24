@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle Rental System</title>
+  <style>
+    /* Car info styling */
+    .car-info {
+      padding: 20px;
+      margin-bottom: 150px;
+      margin-right: 10px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      width: calc(30% - 20px); /* Set width to 50% minus padding */
+      float: left; /* Float cars to the left */
+    }
+
+    .car-info img {
+      width: 200px; /* Adjust image width as needed */
+      height: 100px;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .car-info h3 {
+      margin-top: 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    /* Driver info styling */
+    .driver-info {
+      position: relative;
+      padding: 20px;
+      margin-right: 10px;
+      top: -480px;
+      left: -55px;
+      margin-bottom: 220px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      width: calc(30% - 20px); /* Set width to 50% minus padding */
+      float: right; /* Float drivers to the right */
+    }
+
+    .driver-info h3 {
+      margin-top: 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    /* Clear floating elements after every pair */
+    .clearfix::after {
+      content: "rfsd";
+      display: table;
+      clear: both;
+    }
+
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Welcome to Vehicle Rental System</h1>
+  <div class="divider"></div>
+  <h2>Information</h2>
+  <ul class="clearfix">
+    <!-- Iterate over cars -->
+    <li th:each="car, carIndex : ${cars}" th:class="'car-info car-info-' + ${carIndex.index}">
+      <div>
+        <a th:href="@{'/booking?carId=' + ${car.id}}">
+          <img th:src="${car.imageLink}" alt="Car Image"/>
+        </a>
+      </div>
+      <div>
+        <h3 th:text="${car.make + ' ' + car.model + ' (' + car.year + ')'}"></h3>
+      </div>
+    </li>
+
+    <li th:each="driver, driverIndex : ${drivers}" th:class="'driver-info driver-info-' + ${driverIndex.index}">
+      <div>
+        <h3 th:text="${driver.name}"></h3>
+        <p th:text="'License: ' + ${driver.licenseNumber}"></p>
+      </div>
+    </li>
+  </ul>
+</div>
+</body>
+</html>
